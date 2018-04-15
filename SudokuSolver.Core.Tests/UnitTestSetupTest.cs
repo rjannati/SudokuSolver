@@ -3,6 +3,9 @@ using Xunit;
 
 namespace SudokuSolver.Core.Tests
 {
+	/// <summary>
+	/// TODO: Remove this test since this is only testing the framework and not the logic of the code.
+	/// </summary>
 	public class UnitTestSetupTest
 	{
 		private ITestMockable testMockable;
