@@ -18,4 +18,9 @@
     <ProjectReference Include="..\SudokuSolver.Core\SudokuSolver.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Resources\Puzzles\" />
+  </ItemGroup>
+
 </Project>

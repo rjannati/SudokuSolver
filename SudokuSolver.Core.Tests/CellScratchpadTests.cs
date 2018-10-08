@@ -9,15 +9,45 @@ namespace SudokuSolver.Core.Tests
     public class CellScratchpadTests
     {
 		[Fact]
-		public void Constructor_CreatesProperScratchpadCell_IsSuccessful()
+		public void Constructor_WhenCellHasNoOriginalValue_CreatesMutableCell()
 		{
-			var scratchPadCell = new CellScratchpad(3, 4);
+			var scratchPadCell = new CellScratchpad(3, 4, null);
 			var (row, column) = scratchPadCell.CellLocation;
 
 			Assert.NotNull(scratchPadCell);
 			Assert.NotNull(scratchPadCell.Candidates);
 			Assert.Equal(3, row);
 			Assert.Equal(4, column);
+			Assert.False(scratchPadCell.Immutable);
+		}
+
+		[Fact]
+		public void Constructor_WhenCellHasOriginalValue_CreatesImmutableCell()
+		{
+			var scratchPadCell = new CellScratchpad(3, 4, 5);
+			var (row, column) = scratchPadCell.CellLocation;
+
+			Assert.NotNull(scratchPadCell);
+			Assert.NotNull(scratchPadCell.Candidates);
+			Assert.Equal(3, row);
+			Assert.Equal(4, column);
+			Assert.True(scratchPadCell.Immutable);
+		}
+
+		[Fact]
+		public void ValueProperty_WhenCellScratchpadIsImmutable_ThrowsException()
+		{
+			var scratchPadCell = new CellScratchpad(3, 4, 5);
+			Assert.Throws<InvalidOperationException>(() => scratchPadCell.Value = 2);
+		}
+
+		[Fact]
+		public void ValueProperty_WhenCellScratchpadIsMutable_ValueIsChanged()
+		{
+			var scratchPadCell = new CellScratchpad(3, 4);
+			scratchPadCell.Value = 5;
+
+			Assert.Equal(5, scratchPadCell.Value);
 		}
 
 		[Fact]
